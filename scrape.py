@@ -34,6 +34,8 @@ def navigate(driver):
   select(driver, ANMELDUNG, "1")
   select(driver, REISEPASS, "1")
 
+  driver.implicitly_wait(1)
+
   click_button(driver, CHOOSE_DATETIME)
   click_buttons(driver, CHECKBOX)
   click_button(driver, CONFIRM)
