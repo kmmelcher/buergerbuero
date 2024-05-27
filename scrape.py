@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
+from playsound import playsound
 import time
 
 BUERGERBUERO_WEBSITE = 'https://tempus-termine.com/termine/index.php?anlagennr=13&anlagentoken=Uq9dpZv7&anwendung=1&infotext=buergerbuero'
@@ -34,11 +35,16 @@ def navigate(driver):
   select(driver, ANMELDUNG, "1")
   select(driver, REISEPASS, "1")
 
+  driver.implicitly_wait(1)
+
   click_button(driver, CHOOSE_DATETIME)
   click_buttons(driver, CHECKBOX)
   click_button(driver, CONFIRM)
 
   earliest_date = find_text(driver, TERMIN_DATE)
+  day_month = earliest_date.split()[1].split(".")
+  if int(day_month[1]) < 7:
+    playsound('/opt/libreoffice7.6/share/gallery/sounds/gong.wav')
 
   print (earliest_date)
   
